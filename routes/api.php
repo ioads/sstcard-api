@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\CepController;
 
 Route::group([
 
@@ -25,4 +26,5 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/{id}', [ClienteController::class, 'show']);
         Route::put('/status/{id}', [ClienteController::class, 'status']);
     });
+    Route::get('address/{cep}', [CepController::class, 'cep']);
 });
