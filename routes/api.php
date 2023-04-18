@@ -22,5 +22,7 @@ Route::group([
 Route::group(['middleware' => 'api'], function ($router) {
     Route::prefix('clientes')->group(function () {
         Route::get('/', [ClienteController::class, 'index']);
+        Route::get('/{id}', [ClienteController::class, 'show']);
+        Route::put('/status/{id}', [ClienteController::class, 'status']);
     });
 });

@@ -12,9 +12,12 @@ class Cliente extends Model
     protected $table = 'clientes';
 
     protected $fillables = [
+        'cpf',
+        'rg',
         'nome',
         'celular',
         'email',
+        'numero_protocolo',
         'cep',
         'logradouro',
         'numero',

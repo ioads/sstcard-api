@@ -17,4 +17,16 @@ class ClienteRepository
     {
         return $this->model->all();
     }
+
+    public function show(string $id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function status(string $id)
+    {
+        $cliente = $this->model->find($id);
+        $cliente->status = !$cliente->status;
+        return $cliente->save();
+    }
 }

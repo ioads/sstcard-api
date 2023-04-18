@@ -18,4 +18,14 @@ class ClienteController extends Controller
     {
         return $this->clienteRepository->all();
     }
+
+    public function show(string $id)
+    {
+        return $this->clienteRepository->show($id);
+    }
+
+    public function status(string $id)
+    {
+        return $this->clienteRepository->status($id);
+    }
 }
