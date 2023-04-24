@@ -11,7 +11,7 @@ class Parceiro extends Model
 
     protected $table = 'parceiros';
 
-    protected $fillables = [
+    protected $fillable = [
         'user_id',
         'cnpj',
         'nome_fantasia',

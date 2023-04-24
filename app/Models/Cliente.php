@@ -11,7 +11,7 @@ class Cliente extends Model
 
     protected $table = 'clientes';
 
-    protected $fillables = [
+    protected $fillable = [
         'cpf',
         'rg',
         'nome',
