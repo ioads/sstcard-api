@@ -36,4 +36,10 @@ class ParceiroRepository
         $cliente->status = !$cliente->status;
         return $cliente->save();
     }
+
+    public function update(array $data, string $id)
+    {
+        $parceiro = $this->model->find($id);
+        return $parceiro->update($data);
+    }
 }

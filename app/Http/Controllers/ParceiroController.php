@@ -29,4 +29,10 @@ class ParceiroController extends Controller
         $data = $request->all();
         return $this->parceiroRepository->store($data);
     }
+
+    public function update(Request $request, string $id)
+    {
+        $data = $request->all();
+        return $this->parceiroRepository->update($data, $id);
+    }
 }
