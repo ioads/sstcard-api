@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ParceiroController;
+use App\Http\Controllers\VendaController;
 use App\Http\Controllers\CepController;
 
 Route::group([
@@ -34,6 +35,12 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::put('/{id}', [ParceiroController::class, 'update']);
         // Route::put('/status/{id}', [ClienteController::class, 'status']);
         Route::post('/', [ParceiroController::class, 'store']);
+    });
+    Route::prefix('vendas')->group(function () {
+        Route::get('/', [VendaController::class, 'index']);
+        Route::get('/{id}', [VendaController::class, 'show']);
+        Route::put('/{id}', [VendaController::class, 'update']);
+        Route::post('/', [VendaController::class, 'store']);
     });
     Route::get('address/{cep}', [CepController::class, 'cep']);
 });
