@@ -29,4 +29,16 @@ class ClienteRepository
         $cliente->status = !$cliente->status;
         return $cliente->save();
     }
+
+    public function consultaNumeroProntuario(string $numero_prontuario)
+    {
+        $cliente = $this->model->where('numero_protocolo', '=', $numero_prontuario)->first();
+        if(!$cliente) {
+            return response()->json(['success' => 'false', 'data' => 'Não existe cliente com este número de prontuário.']);
+        }   
+        if($cliente->status == 1) {
+            return response()->json(['success' => 'true', 'data' => 'O cliente está ativo.']);
+        }
+        return response()->json(['success' => 'false', 'data' => 'O cliente está inativo']);
+    }
 }

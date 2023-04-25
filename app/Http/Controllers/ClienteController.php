@@ -28,4 +28,9 @@ class ClienteController extends Controller
     {
         return $this->clienteRepository->status($id);
     }
+
+    public function consultaNumeroProntuario(string $numero_prontuario)
+    {
+        return $this->clienteRepository->consultaNumeroProntuario($numero_prontuario);
+    }
 }
