@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ParceiroController;
 use App\Http\Controllers\VendaController;
+use App\Http\Controllers\PlanoController;
 use App\Http\Controllers\CepController;
 
 Route::group([
@@ -41,6 +42,10 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/{id}', [VendaController::class, 'show']);
         Route::put('/{id}', [VendaController::class, 'update']);
         Route::post('/', [VendaController::class, 'store']);
+    });
+    Route::prefix('planos')->group(function () {
+        Route::get('/', [PlanoController::class, 'index']);
+        Route::get('/{id}', [PlanoController::class, 'show']);
     });
     Route::get('address/{cep}', [CepController::class, 'cep']);
 });
