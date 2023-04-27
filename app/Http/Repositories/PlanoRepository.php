@@ -2,44 +2,33 @@
 
 namespace App\Http\Repositories;
 
-// use App\Models\Cliente;
+use App\Http\Client\PagarMe;
 
 class PlanoRepository
 {
-    // private $model;
+    protected $PagarMe;
+    protected $Key;
+    protected $EndPoint;
 
     public function __construct()
     {
-        // $this->model = $model;
+        $this->Key = env('PAGARME_KEY');
+        $this->EndPoint = 'plans';
     }
 
     public function all()
-    {
-        $cURLConnection = curl_init();
+    {        
+        $this->PagarMe = new PagarMe($this->Key, $this->EndPoint);
+        $this->PagarMe->get();
 
-        $url = env('PAGARME_URL').'plans?api_key='.env('PAGARME_KEY');
-
-        curl_setopt($cURLConnection, CURLOPT_URL, $url);
-        curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($cURLConnection);
-        curl_close($cURLConnection);
-
-        return response()->json(['success' => 'true', 'data' => json_decode($response)]);
+        return response()->json(['success' => 'true', 'data' => json_decode($this->PagarMe->response())]);
     }
 
     public function show(string $id)
     {
-        $cURLConnection = curl_init();
+        $this->PagarMe = new PagarMe($this->Key, $this->EndPoint);
+        $this->PagarMe->get($id);
 
-        $url = env('PAGARME_URL').'plans/'.$id.'?api_key='.env('PAGARME_KEY');
-
-        curl_setopt($cURLConnection, CURLOPT_URL, $url);
-        curl_setopt($cURLConnection, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($cURLConnection);
-        curl_close($cURLConnection);
-
-        return response()->json(['success' => 'true', 'data' => json_decode($response)]);
+        return response()->json(['success' => 'true', 'data' => json_decode($this->PagarMe->response())]);
     }
 }
