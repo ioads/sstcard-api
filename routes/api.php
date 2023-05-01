@@ -34,7 +34,7 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/', [ParceiroController::class, 'index']);
         Route::get('/{id}', [ParceiroController::class, 'show']);
         Route::put('/{id}', [ParceiroController::class, 'update']);
-        // Route::put('/status/{id}', [ClienteController::class, 'status']);
+        Route::put('/status/{id}', [ParceiroController::class, 'status']);
         Route::post('/', [ParceiroController::class, 'store']);
     });
     Route::prefix('vendas')->group(function () {

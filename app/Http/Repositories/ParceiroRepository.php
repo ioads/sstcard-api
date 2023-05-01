@@ -32,9 +32,9 @@ class ParceiroRepository
 
     public function status(string $id)
     {
-        $cliente = $this->model->find($id);
-        $cliente->status = !$cliente->status;
-        return $cliente->save();
+        $parceiro = $this->model->find($id);
+        $parceiro->status = !$parceiro->status;
+        return $parceiro->save();
     }
 
     public function update(array $data, string $id)
