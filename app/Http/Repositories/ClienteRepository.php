@@ -23,6 +23,26 @@ class ClienteRepository
         return $this->model->find($id);
     }
 
+    public function store($data)
+    {
+        return $this->model->create([
+            'cpf' => $data['cpf'],
+            'rg' => $data['rg'],
+            'nome' => $data['nome'],
+            'celular' => $data['ddd'].$data['celular'],
+            'email' => $data['email'],
+            'numero_protocolo' => '124524211',
+            'cep' => $data['cep'],
+            'logradouro' => $data['logradouro'],
+            'numero' => $data['numero'],
+            'complemento' => $data['complemento'],
+            'referencia' => $data['referencia'],
+            'cidade' => $data['cidade'],
+            'uf' => $data['uf'],
+            'status' => 1
+        ]);
+    }
+
     public function status(string $id)
     {
         $cliente = $this->model->find($id);

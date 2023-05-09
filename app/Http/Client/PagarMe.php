@@ -27,7 +27,7 @@ class PagarMe
     {
         curl_setopt($this->Curl, CURLOPT_URL, env('PAGARME_URL').$this->EndPoint.'?api_key='.$this->ApiKey);
         curl_setopt($this->Curl, CURLOPT_POST, true);
-        curl_setopt($this->Curl, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($this->Curl, CURLOPT_POSTFIELDS, http_build_query($params));
         curl_setopt($this->Curl, CURLOPT_RETURNTRANSFER, true);
         $this->execute();
     }

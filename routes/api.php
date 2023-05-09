@@ -7,6 +7,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ParceiroController;
 use App\Http\Controllers\VendaController;
 use App\Http\Controllers\PlanoController;
+use App\Http\Controllers\AssinaturaController;
 use App\Http\Controllers\CepController;
 
 Route::group([
@@ -46,6 +47,9 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::prefix('planos')->group(function () {
         Route::get('/', [PlanoController::class, 'index']);
         Route::get('/{id}', [PlanoController::class, 'show']);
+    });
+    Route::prefix('assinaturas')->group(function () {
+        Route::post('/', [AssinaturaController::class, 'store']);
     });
     Route::get('address/{cep}', [CepController::class, 'cep']);
 });
