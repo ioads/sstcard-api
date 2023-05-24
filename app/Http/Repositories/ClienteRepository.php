@@ -61,4 +61,13 @@ class ClienteRepository
         }
         return response()->json(['success' => 'false', 'data' => 'O cliente está inativo']);
     }
+
+    public function clienteAssinatura($cliente_id, $assinatura_id, $plano_id)
+    {
+        $this->model->clienteAssinatura()->create([
+            'cliente_id' => $cliente_id,
+            'api_assinatura_id' => $assinatura_id,
+            'api_plano_id' => $plano_id
+        ]);
+    }
 }

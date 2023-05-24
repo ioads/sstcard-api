@@ -27,4 +27,9 @@ class Cliente extends Model
         'uf',
         'status'
     ];
+
+    public function clienteAssinatura()
+    {
+        return $this->hasMany(ClienteAssinatura::class);
+    }
 }
