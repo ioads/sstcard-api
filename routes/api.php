@@ -49,6 +49,7 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/{id}', [PlanoController::class, 'show']);
     });
     Route::prefix('assinaturas')->group(function () {
+        Route::get('/', [AssinaturaController::class, 'index']);
         Route::post('/', [AssinaturaController::class, 'store']);
     });
     Route::get('address/{cep}', [CepController::class, 'cep']);
