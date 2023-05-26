@@ -50,6 +50,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     });
     Route::prefix('assinaturas')->group(function () {
         Route::get('/', [AssinaturaController::class, 'index']);
+        Route::get('/{id}', [AssinaturaController::class, 'show']);
         Route::post('/', [AssinaturaController::class, 'store']);
     });
     Route::get('address/{cep}', [CepController::class, 'cep']);
