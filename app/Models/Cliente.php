@@ -11,6 +11,8 @@ class Cliente extends Model
 
     protected $table = 'clientes';
 
+    public $incrementing = true;
+
     protected $fillable = [
         'cpf',
         'rg',

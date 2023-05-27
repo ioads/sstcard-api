@@ -29,9 +29,9 @@ class AssinaturaController extends Controller
 
     public function store(Request $request)
     {
-        $cliente = $this->clienteRepository->store($request->input('cliente'));
+        $cliente_id = $this->clienteRepository->store($request->input('cliente'));
         $response = $this->assinaturaRepository->store($request->all());
-        $this->clienteRepository->clienteAssinatura($cliente['id'], $response['id'], $response['plan']['id']);
+        // $this->clienteRepository->clienteAssinatura($cliente_id, $response);
         return $response;
     }
 }

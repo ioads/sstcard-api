@@ -26,13 +26,13 @@ class ClienteRepository
     public function store($data)
     {
         return $this->model->create([
-            'cpf' => $data['cpf'],
-            'rg' => $data['rg'],
+            'cpf' => str_replace('.', '', str_replace('-', '', $data['cpf'])),
+            'rg' => str_replace('.', '', str_replace('-', '', $data['rg'])),
             'nome' => $data['nome'],
-            'celular' => $data['ddd'].$data['celular'],
+            'celular' => str_replace('(', '', str_replace(')', '', $data['ddd'])).str_replace('(', '', str_replace(')', '', str_replace(' ', '', str_replace('-', '', $data['celular'])))),
             'email' => $data['email'],
             'numero_protocolo' => '124524211',
-            'cep' => $data['cep'],
+            'cep' => str_replace('-', '', $data['cep']),
             'logradouro' => $data['logradouro'],
             'numero' => $data['numero'],
             'complemento' => $data['complemento'],
@@ -40,7 +40,7 @@ class ClienteRepository
             'cidade' => $data['cidade'],
             'uf' => $data['uf'],
             'status' => 1
-        ]);
+        ])->id;
     }
 
     public function status(string $id)
@@ -62,12 +62,12 @@ class ClienteRepository
         return response()->json(['success' => 'false', 'data' => 'O cliente está inativo']);
     }
 
-    public function clienteAssinatura($cliente_id, $assinatura_id, $plano_id)
+    public function clienteAssinatura($cliente_id, $response)
     {
         $this->model->clienteAssinatura()->create([
             'cliente_id' => $cliente_id,
-            'api_assinatura_id' => $assinatura_id,
-            'api_plano_id' => $plano_id
+            'api_assinatura_id' => $response->id,
+            'api_plano_id' => $response->plan->id
         ]);
     }
 }

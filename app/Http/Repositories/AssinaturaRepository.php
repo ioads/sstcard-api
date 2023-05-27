@@ -42,10 +42,10 @@ class AssinaturaRepository
         $data = array(
             "plan_id" => $data['id_plano'],
             "payment_method" => 'credit_card',
-            "card_number" => $data['cartao']['cartao_numero'],
+            "card_number" => str_replace(' ', '', $data['cartao']['cartao_numero']),
             "card_cvv" => $data['cartao']['cartao_cvv'],
             "card_holder_name" => $data['cartao']['cartao_nome'],
-            "card_expiration_date" => $data['cartao']['cartao_validade'],
+            "card_expiration_date" => str_replace('/', '', $data['cartao']['cartao_validade']),
             "customer" => array(
                 "email" => $data['cliente']['email'],
                 "name" => $data['cliente']['nome'],
@@ -58,14 +58,14 @@ class AssinaturaRepository
                     "zipcode" => $data['cliente']['cep']
                 ),
                 "phone" => array(
-                    "ddd" => '71',
-                    "number" => '992534933'
+                    "ddd" => str_replace('(', '', str_replace(')', '', $data['cliente']['ddd'])),
+                    "number" => str_replace('-', '', $data['cliente']['celular'])
                 ),
                 "gender" => $data['cliente']['sexo'],
                 "born_at" => $data['cliente']['data_nascimento']
             )
         );
         $this->PagarMe->post($data);
-        return response()->json(['success' => 'true', 'data' => json_decode($this->PagarMe->response())]);
+        return json_decode($this->PagarMe->response());
     }
 }

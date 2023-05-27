@@ -27,6 +27,10 @@ class ParceiroRepository
     {
         $data['user_id'] = 1;
         $data['status'] = 1;
+        $data['cnpj'] = str_replace('.', '', str_replace('-', '', str_replace('/', '', $data['cnpj'])));
+        $data['celular'] = str_replace('(', '', str_replace(')', '', str_replace(' ', '', str_replace('-', '', $data['celular']))));
+        $data['telefone'] = str_replace('(', '', str_replace(')', '', str_replace(' ', '', str_replace('-', '', $data['telefone']))));
+        $data['cep'] = str_replace('-', '', $data['cep']);
         return $this->model->create($data);
     }
 
