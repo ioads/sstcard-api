@@ -8,7 +8,8 @@ use GuzzleHttp\Client;
 class CepController extends Controller
 {
     public function cep(Client $client, string $cep) {
-        $response = $client->get("https://viacep.com.br/ws/{$cep}/json/");
+        $newCep = str_replace('-', '', $cep);
+        $response = $client->get("https://viacep.com.br/ws/{$newCep}/json/");
 
         return json_decode($response->getBody(), true);
     }
