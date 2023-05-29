@@ -46,6 +46,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     });
     Route::prefix('planos')->group(function () {
         Route::get('/', [PlanoController::class, 'index']);
+        Route::post('/', [PlanoController::class, 'store']);
         Route::get('/{id}', [PlanoController::class, 'show']);
     });
     Route::prefix('assinaturas')->group(function () {

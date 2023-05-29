@@ -23,4 +23,10 @@ class PlanoController extends Controller
     {
         return $this->planoRepository->show($id);
     }
+
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        return $this->planoRepository->store($data);
+    }
 }

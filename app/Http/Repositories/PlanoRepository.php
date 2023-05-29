@@ -31,4 +31,22 @@ class PlanoRepository
 
         return response()->json(['success' => 'true', 'data' => json_decode($this->PagarMe->response())]);
     }
+
+    public function store($data)
+    {
+        $this->PagarMe = new PagarMe($this->Key, $this->EndPoint);
+        
+        $data = array(
+            "amount" => $data['amount'],
+            "days" => $data['days'],
+            "name" => $data['name'],
+            "trial_days" => $data['trial_days'],
+            "payment_methods" => ["boleto", "credit_card"],
+            "charges" => $data['charges'],
+            "installments" => $data['installments'],
+            "invoice_reminder" => $data['invoice_reminder']
+        );
+        $this->PagarMe->post($data);
+        return json_decode($this->PagarMe->response());
+    }
 }
