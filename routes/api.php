@@ -59,9 +59,11 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::prefix('export')->group(function () {
         Route::prefix('/excel')->group(function () {
             Route::get('/clientes', [ClienteController::class, 'excel']);
+            Route::get('/parceiros', [ParceiroController::class, 'excel']);
         });
         Route::prefix('/pdf')->group(function () {
             Route::get('/clientes', [ClienteController::class, 'pdf']);
+            Route::get('/parceiros', [ParceiroController::class, 'pdf']);
         });
     });
     Route::get('address/{cep}', [CepController::class, 'cep']);

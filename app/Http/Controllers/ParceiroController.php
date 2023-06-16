@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Repositories\ParceiroRepository;
 use App\Http\Repositories\UserRepository;
+use App\Exports\ParceiroExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ParceiroController extends Controller
 {
@@ -46,5 +49,17 @@ class ParceiroController extends Controller
     {
         $data = $request->all();
         return $this->parceiroRepository->update($data, $id);
+    }
+
+    public function excel()
+    {
+        return Excel::download(new ParceiroExport, 'cliente.xlsx');
+    }
+
+    public function pdf()
+    {
+        $parceiros = $this->parceiroRepository->all();
+        $pdf = Pdf::loadView('pdf.parceiros', ['parceiros' => $parceiros]);
+        return $pdf->download('parceiros.pdf');
     }
 }

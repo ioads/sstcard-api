@@ -8,32 +8,32 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <title>Relatório de clientes</title>
+    <title>Relatório de parceiros</title>
   </head>
   <body>
-    <h2 class="text-center">Relatório de clientes</h2>
+    <h2 class="text-center">Relatório de parceiros</h2>
     <br>
 
     <table class="table table-sm">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">CPF</th>
-                <th scope="col">Nome</th>
+                <th scope="col">CNPJ</th>
+                <th scope="col">Nome Fantasia</th>
+                <th scope="col">Razão Social</th>
                 <th scope="col">Celular</th>
                 <th scope="col">E-mail</th>
-                <th scope="col">Número Protocolo</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($clientes as $cliente)
+            @foreach($parceiros as $parceiro)
             <tr>
-                <th scope="row">{{ $cliente->id }}</th>
-                <td>{{ $cliente->cpf }}</td>
-                <td>{{ $cliente->nome }}</td>
-                <td>{{ $cliente->celular }}</td>
-                <td>{{ $cliente->email }}</td>
-                <td>{{ $cliente->numero_protocolo }}</td>
+                <th scope="row">{{ $parceiro->id }}</th>
+                <td>{{ $parceiro->cnpj }}</td>
+                <td>{{ $parceiro->nome_fantasia }}</td>
+                <td>{{ $parceiro->razao_social }}</td>
+                <td>{{ $parceiro->celular }}</td>
+                <td>{{ $parceiro->email }}</td>
             </tr>
             @endforeach
         </tbody>
