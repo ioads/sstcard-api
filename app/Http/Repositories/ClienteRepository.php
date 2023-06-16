@@ -31,7 +31,7 @@ class ClienteRepository
             'nome' => $data['nome'],
             'celular' => str_replace('(', '', str_replace(')', '', $data['ddd'])).str_replace('(', '', str_replace(')', '', str_replace(' ', '', str_replace('-', '', $data['celular'])))),
             'email' => $data['email'],
-            'numero_protocolo' => '124524211',
+            'numero_protocolo' => str_replace('/', '', str_replace(':', '', str_replace(' ', '', date("d/m/Y H:i:s")))),
             'cep' => str_replace('-', '', $data['cep']),
             'logradouro' => $data['logradouro'],
             'numero' => $data['numero'],

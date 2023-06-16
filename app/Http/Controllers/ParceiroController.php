@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Repositories\ParceiroRepository;
+use App\Http\Repositories\UserRepository;
 
 class ParceiroController extends Controller
 {
     private $clienteRepository;
 
-    public function __construct(ParceiroRepository $parceiroRepository)
+    public function __construct(ParceiroRepository $parceiroRepository, UserRepository $userRepository)
     {
         $this->parceiroRepository = $parceiroRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function index()
@@ -27,7 +29,12 @@ class ParceiroController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        return $this->parceiroRepository->store($data);
+        $parceiro = $this->parceiroRepository->store($data);
+        if($parceiro) {
+            $password = Hash::make('123456');
+            $this->userRepository->store($data);
+        }
+        return $parceiro;
     }
 
     public function status(string $id)
