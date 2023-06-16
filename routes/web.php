@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Models\Cliente;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('test', function() {
+    
+    $data = Cliente::all();
+    $pdf = Pdf::loadView('pdf.clientes', ['clientes' => $data]);
+    return $pdf->stream();
+});
 
 Route::get('/', function () {
     return view('welcome');

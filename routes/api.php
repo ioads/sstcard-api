@@ -24,6 +24,8 @@ Route::group([
 
 });
 
+
+
 Route::group(['middleware' => 'api'], function ($router) {
     Route::prefix('clientes')->group(function () {
         Route::get('/', [ClienteController::class, 'index']);
@@ -53,6 +55,14 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::get('/', [AssinaturaController::class, 'index']);
         Route::get('/{id}', [AssinaturaController::class, 'show']);
         Route::post('/', [AssinaturaController::class, 'store']);
+    });
+    Route::prefix('export')->group(function () {
+        Route::prefix('/excel')->group(function () {
+            Route::get('/clientes', [ClienteController::class, 'excel']);
+        });
+        Route::prefix('/pdf')->group(function () {
+            Route::get('/clientes', [ClienteController::class, 'pdf']);
+        });
     });
     Route::get('address/{cep}', [CepController::class, 'cep']);
 });
