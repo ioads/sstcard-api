@@ -26,9 +26,9 @@ class ParceiroRepository
         return $this->model->find($id);
     }
 
-    public function store(array $data)
+    public function store(array $data, $user)
     {
-        $data['user_id'] = 1;
+        $data['user_id'] = $user->id;
         $data['status'] = 1;
         $data['cnpj'] = str_replace('.', '', str_replace('-', '', str_replace('/', '', $data['cnpj'])));
         $data['celular'] = str_replace('(', '', str_replace(')', '', str_replace(' ', '', str_replace('-', '', $data['celular']))));

@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Repositories\ParceiroRepository;
 use App\Http\Repositories\UserRepository;
-use App\Exports\ParceiroExport;
-use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 class ParceiroController extends Controller
 {
@@ -32,12 +29,10 @@ class ParceiroController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $parceiro = $this->parceiroRepository->store($data);
-        if($parceiro) {
-            $password = Hash::make('123456');
-            $this->userRepository->store($data);
+        $user = $this->userRepository->store($data);
+        if($user) {
+            $this->parceiroRepository->store($data, $user);
         }
-        return $parceiro;
     }
 
     public function status(string $id)

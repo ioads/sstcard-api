@@ -3,6 +3,7 @@
 namespace App\Http\Repositories;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
@@ -15,14 +16,11 @@ class UserRepository
 
     public function store(array $data)
     {
-        $this->model->create([
-            'name' => $data['name'],
+        return $this->model->create([
+            'name' => $data['nome_fantasia'],
             'email' => $data['email'],
-            'password' => $password,
+            'password' => Hash::make('123456'),
             'role_id' => 2
         ]);
-        if($user) {
-            // enviar email
-        }
     }
 }
