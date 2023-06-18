@@ -3,6 +3,9 @@
 namespace App\Http\Repositories;
 
 use App\Models\Parceiro;
+use App\Exports\ParceiroExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ParceiroRepository
 {
@@ -45,5 +48,18 @@ class ParceiroRepository
     {
         $parceiro = $this->model->find($id);
         return $parceiro->update($data);
+    }
+
+    public function excel()
+    {
+        return Excel::download(new ParceiroExport, 'cliente.xlsx');
+
+    }
+
+    public function pdf()
+    {
+        $parceiros = $this->model->all();
+        $pdf = Pdf::loadView('pdf.parceiros', ['parceiros' => $parceiros]);
+        return $pdf->download('parceiros.pdf');
     }
 }

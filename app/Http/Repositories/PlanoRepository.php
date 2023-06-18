@@ -3,6 +3,9 @@
 namespace App\Http\Repositories;
 
 use App\Http\Client\PagarMe;
+use App\Exports\PlanoExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PlanoRepository
 {
@@ -48,5 +51,22 @@ class PlanoRepository
         );
         $this->PagarMe->post($data);
         return json_decode($this->PagarMe->response());
+    }
+
+    public function excel()
+    {        
+        $this->PagarMe = new PagarMe($this->Key, $this->EndPoint);
+        $this->PagarMe->get();
+
+        return Excel::download(new PlanoExport(json_decode($this->PagarMe->response())), 'plano.xlsx');
+    }
+
+    public function pdf()
+    {
+        $this->PagarMe = new PagarMe($this->Key, $this->EndPoint);
+        $this->PagarMe->get();
+        
+        $pdf = Pdf::loadView('pdf.planos', ['planos' => json_decode($this->PagarMe->response())]);
+        return $pdf->download('planos.pdf');
     }
 }

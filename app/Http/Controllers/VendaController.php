@@ -36,4 +36,18 @@ class VendaController extends Controller
         $data = $request->all();
         return $this->vendaRepository->update($data, $id);
     }
+
+    public function excel()
+    {
+        return $this->vendaRepository->excel();
+        return Excel::download(new ParceiroExport, 'cliente.xlsx');
+    }
+
+    public function pdf()
+    {
+        return $this->vendaRepository->pdf();
+        $parceiros = $this->parceiroRepository->all();
+        $pdf = Pdf::loadView('pdf.parceiros', ['parceiros' => $parceiros]);
+        return $pdf->download('parceiros.pdf');
+    }
 }

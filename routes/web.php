@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Cliente;
+use App\Http\Controllers\PlanoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,8 @@ use App\Models\Cliente;
 |
 */
 
-Route::get('test', function() {
-    
-    $data = Cliente::all();
-    $pdf = Pdf::loadView('pdf.clientes', ['clientes' => $data]);
-    return $pdf->stream();
-});
+
+Route::get('/test', [PlanoController::class, 'excel']);
 
 Route::get('/', function () {
     return view('welcome');

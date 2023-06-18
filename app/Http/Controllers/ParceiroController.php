@@ -53,13 +53,11 @@ class ParceiroController extends Controller
 
     public function excel()
     {
-        return Excel::download(new ParceiroExport, 'cliente.xlsx');
+        return $this->parceiroRepository->excel();
     }
 
     public function pdf()
     {
-        $parceiros = $this->parceiroRepository->all();
-        $pdf = Pdf::loadView('pdf.parceiros', ['parceiros' => $parceiros]);
-        return $pdf->download('parceiros.pdf');
+        return $this->parceiroRepository->pdf();
     }
 }

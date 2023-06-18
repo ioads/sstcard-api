@@ -29,4 +29,14 @@ class PlanoController extends Controller
         $data = $request->all();
         return $this->planoRepository->store($data);
     }
+
+    public function excel()
+    {
+        return $this->planoRepository->excel();
+    }
+
+    public function pdf()
+    {
+        return $this->planoRepository->pdf();
+    }
 }

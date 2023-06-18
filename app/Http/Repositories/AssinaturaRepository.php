@@ -4,6 +4,9 @@ namespace App\Http\Repositories;
 
 use App\Http\Client\PagarMe;
 use App\Models\Cliente;
+use App\Exports\AssinaturaExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AssinaturaRepository
 {
@@ -67,5 +70,22 @@ class AssinaturaRepository
         );
         $this->PagarMe->post($data);
         return json_decode($this->PagarMe->response());
+    }
+
+    public function excel()
+    {        
+        $this->PagarMe = new PagarMe($this->Key, $this->EndPoint);
+        $this->PagarMe->get();
+
+        return Excel::download(new AssinaturaExport(json_decode($this->PagarMe->response())), 'assinaturas.xlsx');
+    }
+
+    public function pdf()
+    {
+        $this->PagarMe = new PagarMe($this->Key, $this->EndPoint);
+        $this->PagarMe->get();
+        
+        $pdf = Pdf::loadView('pdf.assinaturas', ['assinaturas' => json_decode($this->PagarMe->response())]);
+        return $pdf->download('assinaturas.pdf');
     }
 }

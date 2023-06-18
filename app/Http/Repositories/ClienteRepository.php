@@ -3,6 +3,9 @@
 namespace App\Http\Repositories;
 
 use App\Models\Cliente;
+use App\Exports\ClienteExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ClienteRepository
 {
@@ -69,5 +72,17 @@ class ClienteRepository
             'api_assinatura_id' => $response->id,
             'api_plano_id' => $response->plan->id
         ]);
+    }
+
+    public function excel()
+    {
+        return Excel::download(new ClienteExport, 'cliente.xlsx');
+    }
+
+    public function pdf()
+    {
+        $clientes = $this->model->all();
+        $pdf = Pdf::loadView('pdf.clientes', ['clientes' => $clientes]);
+        return $pdf->download('clientes.pdf');
     }
 }

@@ -60,10 +60,16 @@ Route::group(['middleware' => 'api'], function ($router) {
         Route::prefix('/excel')->group(function () {
             Route::get('/clientes', [ClienteController::class, 'excel']);
             Route::get('/parceiros', [ParceiroController::class, 'excel']);
+            Route::get('/planos', [PlanoController::class, 'excel']);
+            Route::get('/assinaturas', [AssinaturaController::class, 'excel']);
+            Route::get('/vendas', [VendaController::class, 'excel']);
         });
         Route::prefix('/pdf')->group(function () {
             Route::get('/clientes', [ClienteController::class, 'pdf']);
             Route::get('/parceiros', [ParceiroController::class, 'pdf']);
+            Route::get('/planos', [PlanoController::class, 'pdf']);
+            Route::get('/assinaturas', [AssinaturaController::class, 'pdf']);
+            Route::get('/vendas', [VendaController::class, 'pdf']);
         });
     });
     Route::get('address/{cep}', [CepController::class, 'cep']);

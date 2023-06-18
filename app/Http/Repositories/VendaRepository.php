@@ -4,6 +4,9 @@ namespace App\Http\Repositories;
 
 use App\Models\Venda;
 use App\Models\Cliente;
+use App\Exports\VendaExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class VendaRepository
 {
@@ -41,5 +44,17 @@ class VendaRepository
     {
         $venda = $this->model->find($id);
         return $venda->update($data);
+    }
+
+    public function excel()
+    {
+        return Excel::download(new VendaExport, 'vendas.xlsx');
+    }
+
+    public function pdf()
+    {
+        $vendas = $this->model->with('cliente')->get();
+        $pdf = Pdf::loadView('pdf.vendas', ['vendas' => $vendas]);
+        return $pdf->download('vendas.pdf');
     }
 }

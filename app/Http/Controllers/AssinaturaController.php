@@ -34,4 +34,14 @@ class AssinaturaController extends Controller
         // $this->clienteRepository->clienteAssinatura($cliente_id, $response);
         return $response;
     }
+
+    public function excel()
+    {
+        return $this->assinaturaRepository->excel();
+    }
+
+    public function pdf()
+    {
+        return $this->assinaturaRepository->pdf();
+    }
 }
